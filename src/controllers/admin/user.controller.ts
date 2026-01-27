@@ -14,6 +14,9 @@ export class AdminUserController {
                     { success: false, message: z.prettifyError(parsedData.error) }
                 )
             }
+            if(req.file){   
+                parsedData.data.imageUrl = `/uploads/${req.file.filename}`;
+            }
             const userData: CreateUserDTO = parsedData.data;
             const newUser = await adminUserService.createUser(userData);
             return res.status(201).json(
@@ -47,6 +50,10 @@ export class AdminUserController {
                 return res.status(400).json(
                     { success: false, message: z.prettifyError(parsedData.error) }
                 )
+            }
+            
+            if(req.file){   
+                parsedData.data.imageUrl = `/uploads/${req.file.filename}`;
             }
             const updateData: UpdateUserDTO = parsedData.data;
             const updatedUser = await adminUserService.updateUser(userId, updateData);
