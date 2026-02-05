@@ -14,7 +14,7 @@ export class AdminUserController {
                     { success: false, message: z.prettifyError(parsedData.error) }
                 )
             }
-            if(req.file){   
+            if (req.file) {
                 parsedData.data.imageUrl = `/uploads/${req.file.filename}`;
             }
             const userData: CreateUserDTO = parsedData.data;
@@ -32,7 +32,7 @@ export class AdminUserController {
     async getAllUsers(req: Request, res: Response, next: NextFunction) {
         try {
             const { page, size, search }: QueryParams = req.query;
-            const {users, pagination} = await adminUserService.getAllUsers(
+            const { users, pagination } = await adminUserService.getAllUsers(
                 page, size, search
             );
             return res.status(200).json(
@@ -47,15 +47,15 @@ export class AdminUserController {
 
     async updateUser(req: Request, res: Response, next: NextFunction) {
         try {
-            const userId = req.params.id;
+            const userId = req.params.id as string;
             const parsedData = UpdateUserDTO.safeParse(req.body); // validate request body
             if (!parsedData.success) { // validation failed
                 return res.status(400).json(
                     { success: false, message: z.prettifyError(parsedData.error) }
                 )
             }
-            
-            if(req.file){   
+
+            if (req.file) {
                 parsedData.data.imageUrl = `/uploads/${req.file.filename}`;
             }
             const updateData: UpdateUserDTO = parsedData.data;
@@ -73,7 +73,7 @@ export class AdminUserController {
 
     async deleteUser(req: Request, res: Response, next: NextFunction) {
         try {
-            const userId = req.params.id;
+            const userId = req.params.id as string;
             const deleted = await adminUserService.deleteUser(userId);
             if (!deleted) {
                 return res.status(404).json(
@@ -92,7 +92,7 @@ export class AdminUserController {
 
     async getUserById(req: Request, res: Response, next: NextFunction) {
         try {
-            const userId = req.params.id;
+            const userId = req.params.id as string;
             const user = await adminUserService.getUserById(userId);
             return res.status(200).json(
                 { success: true, data: user, message: "Single User Retrieved" }
