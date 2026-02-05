@@ -53,6 +53,9 @@ A TypeScript-based Express.js backend API with MongoDB, featuring authentication
    JWT_SECRET=your_jwt_secret_key
    MONGODB_URI=mongodb://127.0.0.1:27017/my_db
    PORT=5050
+   EMAIL_USER="meroemail@gmail.com"
+   EMAIL_PASS="app password here"
+   CLIENT_URL="http://localhost:3000"
    ```
 
 4. **Start MongoDB**
@@ -155,7 +158,7 @@ Authorization: Bearer <your_jwt_token>
 
 Query parameters:
 - `page` (optional): Page number
-- `limit` (optional): Items per page
+- `size` (optional): Items per page
 - `search` (optional): Search term
 
 #### Get User by ID
